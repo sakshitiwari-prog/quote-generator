@@ -1,7 +1,12 @@
 import * as React from 'react';
 import {List} from 'react-native-paper';
 import {styles} from './index.style';
-import {View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
+import {
+  numberOfLines,
+  responsiveHeightWrtScreen,
+  responsiveWidthWrtScreen,
+} from '../../utils/responsiveHelper';
 
 const QuoteItem = ({quote}: any) => {
   let quoteCategory = Object.keys(quote)[0];
@@ -13,6 +18,9 @@ const QuoteItem = ({quote}: any) => {
     quoteCategory: '',
     isExpanded: false,
   });
+  React.useEffect(() => {
+    console.log('quoteCategory', quote);
+  }, [quote]);
 
   const handlePress = (quoteTitle: string) => {
     setExpanded(prevExpanded => ({
@@ -25,7 +33,6 @@ const QuoteItem = ({quote}: any) => {
   return (
     <List.Accordion
       titleStyle={styles.quoteCategoryTitle}
-      // style={styles.quoteCategory}
       title={quoteCategory}
       expanded={expanded.quoteCategory === quoteCategory && expanded.isExpanded}
       onPress={() => handlePress(quoteCategory)}>
@@ -33,11 +40,11 @@ const QuoteItem = ({quote}: any) => {
         quoteCategoryList.map((quoteItem: any, index: number) => (
           <View style={styles.quoteCategoryItem} key={index}>
             <List.Item
+              titleNumberOfLines={numberOfLines(quoteItem.quote.length)}
               titleStyle={styles.quoteCategoryItemTitle} // Adjust the styles as needed
               key={index}
               title={quoteItem.quote}
               description={quoteItem.date}
-              // titleStyle={{ fontSize: 16, color: 'blue' }} // Adjust the styles for the title
               descriptionStyle={styles.quoteCategoryItemDesc} // Adjust the styles for the description
             />
           </View>

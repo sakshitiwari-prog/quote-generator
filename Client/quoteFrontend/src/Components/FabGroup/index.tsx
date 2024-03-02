@@ -1,20 +1,29 @@
 import * as React from 'react';
 // import {Image} from 'react-native';
-import {FAB, Portal, PaperProvider} from 'react-native-paper';
+import {FAB} from 'react-native-paper';
 import {Constants} from '../../utils/constants';
 import {ImagesAssets} from '../../utils/imageAssets';
 import {styles} from './index.style';
 // import Icon from 'react-native-vector-icons/FontAwesome'; // Import the desired icon from react-native-vector-icons
 import {Image, View} from 'react-native';
-import {responsiveWidthWrtScreen} from '../../utils/responsiveHelper';
 import Colors from '../../utils/colors';
+import {removeDataFromStorage} from '../../utils/storage';
 
-import {useNavigation} from '@react-navigation/native';
-const FabGroup = ({navigation}: any) => {
+const FabGroup = (props: any) => {
   const [state, setState] = React.useState({open: false});
 
   const onStateChange = ({open}: any) => setState({open});
-
+  async function logout() {
+    await removeDataFromStorage('user')
+      .then(data => {
+        if (data) {
+          props.navigation.navigate(Constants.navigationScreens.Login);
+        }
+      })
+      .catch((err: any) => {
+        props.errorOccured();
+      });
+  }
   const {open} = state;
   return (
     <FAB.Group
@@ -39,7 +48,7 @@ const FabGroup = ({navigation}: any) => {
           ),
           label: Constants.ProfileScreen.profile,
           onPress: () => {
-            navigation.navigate(Constants.navigationScreens.Profile);
+            props.navigation.navigate(Constants.navigationScreens.Profile);
           },
         },
         {
@@ -54,7 +63,20 @@ const FabGroup = ({navigation}: any) => {
           label: Constants.quoteHistoryScreen.quoteHistory,
           // label: Constants.quoteHistoryScreen.quoteHistory,
           onPress: () =>
-            navigation.navigate(Constants.navigationScreens.QuoteHistory),
+            props.navigation.navigate(Constants.navigationScreens.QuoteHistory),
+        },
+        {
+          icon: () => (
+            <View style={styles.menuContainer}>
+              <Image
+                style={[styles.navMenu, styles.listImg]}
+                source={ImagesAssets.logout}
+              />
+            </View>
+          ),
+          label: Constants.others.logout,
+          // label: Constants.quoteHistoryScreen.quoteHistory,
+          onPress: () => logout(),
         },
       ]}
       onStateChange={onStateChange}

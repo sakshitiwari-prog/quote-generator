@@ -86,7 +86,6 @@ const HomeScreen = ({navigation}: any) => {
               userId: userData.userId,
               quote: res[0].quote,
               quoteCategory: quoteInfo.searchQuote,
-              token,
             };
 
             postRequest(urls.quoteCreation, sendData)

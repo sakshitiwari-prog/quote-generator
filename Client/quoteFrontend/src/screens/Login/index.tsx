@@ -32,10 +32,9 @@ const LoginScreen = () => {
         if (res.user) {
           try {
             await saveDataToStorage('user', JSON.stringify(res.user)).then(
-              data => {},
-            );
-            await saveDataToStorage('token', JSON.stringify(res.token)).then(
               data => {
+                console.log(data, '--------');
+
                 navigation.navigate(Constants.navigationScreens.Home);
               },
             );
@@ -80,17 +79,19 @@ const LoginScreen = () => {
                   errors={errors.password}
                   rightIcon={'eye'}
                 />
-                <Button
-                  labelStyle={buttonStyle.label}
-                  mode={'contained'}
-                  textColor={Colors.black}
-                  buttonColor={Colors.white}
-                  style={[buttonStyle.button]}
+                <TouchableOpacity
                   onPress={() => {
                     handleSubmit();
                   }}>
-                  {Constants.LoginSingUpScreen.login}
-                </Button>
+                  <Button
+                    labelStyle={buttonStyle.label}
+                    mode={'contained'}
+                    textColor={Colors.black}
+                    buttonColor={Colors.white}
+                    style={[buttonStyle.button]}>
+                    {Constants.LoginSingUpScreen.login}
+                  </Button>
+                </TouchableOpacity>
               </View>
             )}
           </Formik>

@@ -29,7 +29,7 @@ const signUp = async (req, res, next) => {
   }
 
   const { name, email, password } = req.body;
-
+  console.log(req.body);
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
@@ -52,16 +52,14 @@ const signUp = async (req, res, next) => {
 const signIn = async (req, res, next) => {
   const { email, password } = req.body;
   let existingUser = await User.findOne({ email });
-  if (!existingUser) {
-    res.status(404).json({ message: "User is not found" });
-  }
   const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
-  if (!isPasswordCorrect) {
-    res.status(400).json({ message: "Incorrect Password" });
-  }
   let token = await existingUser.generateToken(existingUser.userId);
 
-  res.status(200).json({ user: existingUser, token });
+  if (!existingUser) {
+    res.status(404).json({ message: "User is not found" });
+  } else if (!isPasswordCorrect) {
+    res.status(400).json({ message: "Incorrect Password" });
+  } else res.status(200).json({ user: existingUser, token });
 };
 
 const updateProfile = async (req, res, next) => {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {ImagesAssets} from '../../utils/imageAssets';
 import {styles, buttonStyle} from './index.style';
 
@@ -32,34 +32,40 @@ const MainScreen = ({navigation}: any) => {
         </View>
         {/* <AuthProvider></AuthProvider> */}
         <View style={styles.lowerPart}>
-          <Button
-            labelStyle={buttonStyle.label}
-            mode={option.login ? 'contained' : 'outlined'}
-            textColor={option.login ? Colors.black : Colors.white}
-            buttonColor={option.login ? Colors.white : Colors.transparent}
-            style={[
-              option.login ? null : buttonStyle.outlined,
-              buttonStyle.button,
-            ]} // Apply custom style for outlined mode button
+          <TouchableOpacity
             onPress={() =>
               onBtnClickHandler(Constants.LoginSingUpScreen.login)
             }>
-            {Constants.LoginSingUpScreen.login}
-          </Button>
-          <Button
-            labelStyle={buttonStyle.label}
-            mode={option.signUp ? 'contained' : 'outlined'}
-            textColor={option.signUp ? Colors.black : Colors.white}
-            buttonColor={option.signUp ? Colors.white : Colors.transparent}
-            style={[
-              option.signUp ? null : buttonStyle.outlined,
-              buttonStyle.button,
-            ]} // Apply custom style for outlined mode button
+            <Button
+              labelStyle={buttonStyle.label}
+              mode={option.login ? 'contained' : 'outlined'}
+              textColor={option.login ? Colors.black : Colors.white}
+              buttonColor={option.login ? Colors.white : Colors.transparent}
+              style={[
+                option.login ? null : buttonStyle.outlined,
+                buttonStyle.button,
+              ]} // Apply custom style for outlined mode button
+            >
+              {Constants.LoginSingUpScreen.login}
+            </Button>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() =>
               onBtnClickHandler(Constants.LoginSingUpScreen.signUp)
             }>
-            {Constants.LoginSingUpScreen.signUp}
-          </Button>
+            <Button
+              labelStyle={buttonStyle.label}
+              mode={option.signUp ? 'contained' : 'outlined'}
+              textColor={option.signUp ? Colors.black : Colors.white}
+              buttonColor={option.signUp ? Colors.white : Colors.transparent}
+              style={[
+                option.signUp ? null : buttonStyle.outlined,
+                buttonStyle.button,
+              ]} // Apply custom style for outlined mode button
+            >
+              {Constants.LoginSingUpScreen.signUp}
+            </Button>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

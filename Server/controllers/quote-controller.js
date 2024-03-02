@@ -49,10 +49,7 @@ function verifyToken(token) {
   }
 }
 const quoteCreation = async (req, res, next) => {
-  const { userId, quoteCategory, quote, token } = req.body;
-  console.log("token", token, verifyToken, req.body);
-  let verify = verifyToken(token);
-  console.log(verify, "------67788------");
+  const { userId, quoteCategory, quote } = req.body;
 
   try {
     const existingUser = await Quote.findOne({ userId: userId }).exec();

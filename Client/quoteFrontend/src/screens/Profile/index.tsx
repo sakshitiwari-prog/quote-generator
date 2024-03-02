@@ -19,10 +19,7 @@ import {ImagesAssets} from '../../utils/imageAssets';
 import {useNavigation} from '@react-navigation/native';
 import {useFormik} from 'formik';
 import {InputField} from '../../Components/formComponents/InputField';
-import {
-  responsiveHeightWrtScreen,
-  responsiveWidthWrtScreen,
-} from '../../utils/responsiveHelper';
+
 import {getDataFromStorage, saveDataToStorage} from '../../utils/storage';
 import ErrorModal from '../../Components/errorModal';
 import {ProfileSchema} from '../../utils/Helpers/formikSchema';

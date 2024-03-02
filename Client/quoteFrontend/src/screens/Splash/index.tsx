@@ -1,65 +1,49 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import {View, Image, Animated} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {View, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import styles from './index.style';
 import {Constants} from '../../utils/constants';
-// import {navigationScreens} from '../../utils/navigation';
-// import {backCircle} from '../../utils/images';
-// import {CircleLogo} from '../../utils/SvgImage';
-import {StackNavigationProp} from '@react-navigation/stack/';
 import {AuthContext} from '../../AuthProvider';
-// import { StackParams} form 'your/routes';r
-// Image
+import {ImagesAssets} from '../../utils/imageAssets';
+import {styles} from './index.style';
+import {getDataFromStorage} from '../../utils/storage';
 
-function SplashScreen(props: any) {
+function SplashScreen() {
   const navigation = useNavigation<any>();
-  const spinValue = useRef(new Animated.Value(0)).current;
   const authContext = useContext(AuthContext);
+  async function getUserData() {
+    await getDataFromStorage('user')
+      .then(data => {
+        if (data) {
+          navigation.replace(Constants.navigationScreens.Home);
+        } else {
+          navigation.replace(Constants.navigationScreens.Main);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+
+        // setError(true);
+      });
+  }
 
   useEffect(() => {
     const splashTimeout = setTimeout(() => {
-      console.log('==========login============');
-      console.log(authContext.isLogin);
-      console.log('=============login================');
-      if (authContext.isLogin) {
-        console.log('====================================');
-        console.log('if');
-        console.log('====================================');
-        navigation.replace(Constants.navigationScreens.Home);
-      } else {
-        console.log('====================================');
-        console.log('else');
-        console.log('====================================');
-        navigation.replace(Constants.navigationScreens.Main);
-      }
+      getUserData();
     }, 3000);
 
-    Animated.timing(spinValue, {
-      toValue: 1,
-      duration: 3000,
-      useNativeDriver: true,
-    }).start();
-
     return () => clearTimeout(splashTimeout);
-  }, [navigation, spinValue, authContext.isLogin]);
+  }, []);
   useEffect(() => {
     authContext.getUserData();
-  });
-  const spin = spinValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
   });
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.splashImagesContainer}>
-        <Image source={backCircle} style={styles.logo} />
-        <View style={styles.logoContainer}>
-          <Animated.View style={[{transform: [{rotate: spin}]}]}>
-            <CircleLogo></CircleLogo>
-          </Animated.View>
+      <View style={styles.mainContainer}>
+        <View style={styles.upperPart}>
+          <Image style={styles.appImage} source={ImagesAssets.appIcon} />
         </View>
-      </View> */}
+      </View>
     </View>
   );
 }

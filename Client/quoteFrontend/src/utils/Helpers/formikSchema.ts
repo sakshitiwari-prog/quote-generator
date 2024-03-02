@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .max(40, 'Name should be less than 40 characters')
-    .min(6, 'Name should be more than 6 characters')
+    .min(1, 'Name should be more than 1 characters')
     .required('*Please enter your name'),
 
   email: Yup.string()
@@ -19,7 +19,7 @@ export const SignupSchema = Yup.object().shape({
 export const ProfileSchema = Yup.object().shape({
   name: Yup.string()
     .max(40, 'Name should be less than 40 characters')
-    .min(6, 'Name should be more than 6 characters')
+    .min(1, 'Name should be more than 1 characters')
     .required('*Please enter your name'),
 
   email: Yup.string()

@@ -1,62 +1,73 @@
 import {StyleSheet} from 'react-native';
-// import {Color} from '../../utils/Color';
 import {
   responsiveWidthWrtScreen,
   responsiveHeightWrtScreen,
   responsiveFontSize,
 } from '../../utils/responsiveHelper';
 import Colors from '../../utils/colors';
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: responsiveWidthWrtScreen(100),
+    height: responsiveHeightWrtScreen(100),
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.accent,
+    backgroundColor: Colors.background,
   },
-  // splashImagesContainer: {
-  //   position: 'relative',
-  //   width: responsiveWidthWrtScreen(100),
-  //   height: responsiveHeightWrtScreen(50),
-  // },
-  // logoContainer: {
-  //   position: 'absolute',
-  //   width: responsiveWidthWrtScreen(100),
-  //   height: responsiveHeightWrtScreen(50),
-  //   top: 0,
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // outerCircle: {
-  //   width: windowWidth * 1,
-  //   height: windowWidth * 1,
-  //   borderRadius: (windowWidth * 1) / 2,
-  //   backgroundColor: '#181818',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // middleCircle: {
-  //   width: windowWidth * 0.8,
-  //   height: windowWidth * 0.8,
-  //   borderRadius: (windowWidth * 0.8) / 2,
-  //   backgroundColor: 'white',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   position: 'relative',
-  // },
-  // innerCircle: {
-  //   // width: windowWidth * 0.6,
-  //   // height: windowWidth * 0.6,
-  //   borderRadius: (windowWidth * 0.6) / 2,
-  //   backgroundColor: 'white',
-  //   // alignItems: 'center',
-  //   // justifyContent: 'center',
-  // },
-  // logo: {
-  //   width: responsiveWidthWrtScreen(100),
-  //   height: responsiveHeightWrtScreen(50),
-  //   resizeMode: 'contain',
-  // },
+  mainContainer: {
+    width: responsiveWidthWrtScreen(80),
+    height: responsiveHeightWrtScreen(32),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  upperPart: {
+    display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'center',
+  },
+  lowerPart: {},
+  appName: {
+    fontSize: responsiveFontSize(20),
+    fontWeight: '500',
+    color: Colors.white,
+  },
+  appImage: {
+    width: responsiveWidthWrtScreen(30),
+    height: responsiveHeightWrtScreen(30),
+    objectFit: 'contain',
+  },
+  card: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: responsiveWidthWrtScreen(70),
+    marginHorizontal: responsiveWidthWrtScreen(5),
+    marginVertical: responsiveHeightWrtScreen(3),
+    padding: responsiveWidthWrtScreen(2),
+  },
+});
+const buttonStyle = StyleSheet.create({
+  button: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    width: responsiveWidthWrtScreen(80), // Set width
+    height: responsiveHeightWrtScreen(6), // Set height
+    marginVertical: responsiveWidthWrtScreen(2), // Set vertical margin
+    paddingHorizontal: responsiveWidthWrtScreen(2), // Set horizontal padding
+  },
+  outlined: {
+    borderWidth: 1, // Border width
+    borderColor: Colors.white,
+  },
+  label: {
+    fontSize: responsiveFontSize(16), // Set font size dynamically
+    fontWeight: '600', // Set font weight as a string
+  },
 });
 
-export default styles;
+export {styles, buttonStyle};
